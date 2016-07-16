@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+    <title>TianDiTu</title>
+    <link href="../Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <script type="text/javascript" src="./js/require.min.js" data-main="./js/main"></script>
+</head>
+<body>
+<div id="cesiumContainer"></div>
+<script>
+    function onload(Cesium) {
+//            var viewer = new Cesium.Viewer('cesiumContainer', {
+//                imageryProvider : new Cesium.WebMapTileServiceImageryProvider({
+//                    url : 'http://t0.tianditu.com/img_w/wmts?',
+//                    layer : 'img',
+//                    style : 'default',
+//                    format : 'tiles',
+//                    tileMatrixSetID : 'w',
+//                    credit : new Cesium.Credit('天地图全球影像服务'),
+//                    maximumLevel : 18
+//                }),
+//                baseLayerPicker : false
+//            });
+
+//var url =  'http://{s}.tianditu.com/img_w/wmts?service=WMTS&version=1.0.0&request=GetTile&tilematrix={TileMatrix}&layer=img&style={style}&tilerow={TileRow}&tilecol={TileCol}&tilematrixset={TileMatrixSet}&format=tiles';
+//        var viewer = new Cesium.Viewer('cesiumContainer', {
+//            imageryProvider : new Cesium.WebMapTileServiceImageryProvider({
+//                url :url,
+//                layer : 'img',
+//                style : 'default',
+//                format : 'tiles',
+//                tileMatrixSetID : 'w',
+//                credit : new Cesium.Credit('天地图全球影像服务'),
+//                subdomains : ['t0','t1','t2','t3','t4','t5','t6','t7'],
+//                maximumLevel : 18
+//            }),
+//            baseLayerPicker : false
+//        });
+
+
+        var viewer = new Cesium.Viewer('cesiumContainer', {
+            imageryProvider : new Cesium.WebMapTileServiceImageryProvider({
+                url : 'http://t0.tianditu.com/img_c/wmts?service=WMTS&version=1.0.0&request=GetTile&tilematrix={TileMatrix}&layer=img&style={style}&tilerow={TileRow}&tilecol={TileCol}&tilematrixset={TileMatrixSet}&format=tiles',
+                layer : 'img',
+                style : 'default',
+                format : 'tiles',
+                tileMatrixSetID : 'c',
+                credit : new Cesium.Credit('天地图全球影像服务'),
+                subdomains : ['t0','t1','t2','t3','t4','t5','t6','t7'],
+                maximumLevel : 15,
+                tilingScheme : new Cesium.GeographicTilingScheme(),
+                tileMatrixLabels:['1','2','3','4','5','6','7']
+            }),
+            baseLayerPicker : false
+        });
+
+        var test =  new Cesium.ArcGisMapServerImageryProvider({
+            url : 'http://atlasmaps.esri.com/arcgis/rest/services/Esri/USA_Population_Density/MapServer',
+            enablePickFeatures : false
+        });
+
+        var imageryLayers = viewer.imageryLayers;
+
+        imageryLayers.addImageryProvider(test);
+    };
+</script>
+</body>

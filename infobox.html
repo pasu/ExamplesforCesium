@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<head>
+    <title>Info Box</title>
+    <link href="../Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <script type="text/javascript" src="./js/require.min.js" data-main="./js/main"></script>
+</head>
+<body>
+<div id="cesiumContainer"></div>
+<script>
+    function onload(Cesium) {
+        var viewer = new Cesium.Viewer('cesiumContainer');
+
+        viewer.dataSources.add(Cesium.GeoJsonDataSource.load('./data/ne_10m_us_states.topojson', {
+            stroke: Cesium.Color.HOTPINK,
+            fill: Cesium.Color.PINK.withAlpha(0.5),
+            strokeWidth: 3
+        }));
+    }
+</script>
+</body>
