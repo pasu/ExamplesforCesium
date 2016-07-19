@@ -92,6 +92,29 @@ of the world.\nhttp://www.openstreetmap.org',
         });
         providerViewModels.push(tdtModel);
 
+
+        var tilingScheme = new Cesium.WebMercatorTilingScheme();
+        var rectangle = tilingScheme.rectangle;
+        var url = "http://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}"
+        var arcgis = new Cesium.UrlTemplateImageryProvider({
+            url: url,
+            tilingScheme: tilingScheme,
+            tileWidth: 256,
+            tileHeight: 256,
+            minimumLevel: 0,
+            rectangle: rectangle
+        });
+
+        var arcgisModel = new Cesium.ProviderViewModel({
+            name : 'ArcGIS',
+            iconUrl : "./images/arcgis.png",
+            tooltip : 'ArcGIS Online',
+            creationFunction : function() {
+                return arcgis;
+            }
+        });
+        providerViewModels.push(arcgisModel);
+
         var viewer = new Cesium.Viewer('cesiumContainer',{imageryProviderViewModels:providerViewModels});
     }
 </script>
