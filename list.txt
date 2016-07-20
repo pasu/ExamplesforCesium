@@ -23,3 +23,5 @@ Polygon面积
 entity方向旋转180度
 
 polyline可以是虚线么
+
+color 0~1
