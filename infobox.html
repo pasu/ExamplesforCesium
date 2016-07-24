@@ -7,8 +7,89 @@
 <body>
 <div id="cesiumContainer"></div>
 <script>
-    function onload(Cesium) {
+    function onload(Cesium,echarts) {
         var viewer = new Cesium.Viewer('cesiumContainer');
+        viewer.infoBox.frame.setAttribute('sandbox', 'allow-same-origin allow-popups allow-forms allow-scripts');
+
+        var canvas = document.createElement('canvas');
+        canvas.width = 400;
+        canvas.height = 400;
+
+        function createDescriptionCallback() {
+            var description;
+            return function(time, result) {
+                var image = canvas.toDataURL("image/png");
+                description = "<img src='" + image + "'/>";
+                return description;
+            };
+        }
+
+        function MyObject(){
+
+        }
+
+        MyObject.prototype.myListener = function(dataCollection,dataValue) {
+            var entities;
+            var values = [];
+            var names = [];
+
+            entities = dataValue.entities.values;
+            var i=0;
+            for(i=0;i<entities.length;i++)
+            {
+                var name = entities[i].properties.name;
+                var nValue = entities[i].properties.Population;
+                values.push(nValue);
+                names.push(name);
+
+                entities[i].description = new Cesium.CallbackProperty(createDescriptionCallback(), true);
+            }
+
+            var option = {
+                color: ['#3398DB'],
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : names,
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'直接访问',
+                        type:'bar',
+                        barWidth: '60%',
+                        data:values
+                    }
+                ]
+            };
+
+            var myChart = echarts.init(canvas);
+            myChart.setOption(option);
+        }
+
+        var myObjectInstance = new MyObject();
+        var evt = viewer.dataSources.dataSourceAdded;
+        evt.addEventListener(MyObject.prototype.myListener, myObjectInstance);
 
         viewer.dataSources.add(Cesium.GeoJsonDataSource.load('./data/ne_10m_us_states.topojson', {
             stroke: Cesium.Color.HOTPINK,
