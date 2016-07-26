@@ -11,6 +11,8 @@
         var viewer = new Cesium.Viewer('cesiumContainer');
         viewer.infoBox.frame.setAttribute('sandbox', 'allow-same-origin allow-popups allow-forms allow-scripts');
 
+        viewer.cesiumWidget.screenSpaceEventHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+
         var canvas = document.createElement('canvas');
         canvas.width = 400;
         canvas.height = 400;
