@@ -25,3 +25,5 @@ entity方向旋转180度
 polyline可以是虚线么
 
 color 0~1
+
+手机调试
