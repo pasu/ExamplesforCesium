@@ -35,9 +35,9 @@ var table = [{ level:"一级（优）",influence:"空气质量令人满意，基
 var xmlHttpRequest; 
 var imgData = null;
 var nWidth = 500;		
-
+var date;
 function requestJson(bounds,imgbuffer){
-    var date = (new Date).getTime();
+    date = (new Date).getTime();
     imgData = imgbuffer;
 	var nowUrl = url
 				.replace('{RECTANGLE}', bounds)
@@ -73,6 +73,7 @@ function callback() {
 			if(aqi>nWidth){
 				color = {red:126/255.0,green:0.0,blue:35/255.0};
 				level = 5;
+				aqi = nWidth-1;
 			} 
 			else{					
 				color = {red:imgData[aqi*4]/255.0,green:imgData[aqi*4+1]/255.0,blue:imgData[aqi*4+2]/255.0};
@@ -99,25 +100,26 @@ function callback() {
 				des += '<tr><th>' + "质量" + '</th><td>' + table[level].level + '</td></tr>';
 				des += '<tr><th>' + "影响" + '</th><td>' + table[level].influence + '</td></tr>';
 				des += '<tr><th>' + "建议" + '</th><td>' + table[level].suggestion + '</td></tr>' + "</tbody></table>";
+				//des += "</tbody></table>";
 
 				var entity = {
 					lon:currentData[i].lon,
 					lat:currentData[i].lat,
 					color:color,
 					name:currentData[i].city,
-					description:des
+					description:des,
+					aqiValue:aqi
 				};
 				entityTable.push(entity);
 			}
 		}
     	//////////////////////////////////////////////////////
-
-        self.postMessage(entityTable);
+        self.postMessage({date:date,entityTable:entityTable});
     	self.close();          
 	}
-	else if(xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 500){
+	else if(xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 0){
 		var entityTable = []; 
-		self.postMessage(entityTable);
+		self.postMessage({date:date,entityTable:entityTable});
     	self.close();		
 	}
 }
