@@ -74,10 +74,11 @@ function onload(Cesium) {
 			geocoder:true
 		});
 	
-	viewer.scene.camera.flyTo({
+	/*viewer.scene.camera.flyTo({
 		destination : Cesium.Cartesian3.fromDegrees(116.46, 39.92, 6378137/20),
 		duration : 0.1
 	}); 
+	*/
 				
     viewer.scene.globe.depthTestAgainstTerrain = false;
 
@@ -96,7 +97,7 @@ function onload(Cesium) {
 	function showPosition(position)
 	{
 		viewer.scene.camera.flyTo({
-		destination : Cesium.Cartesian3.fromDegrees(position.coords.longitude, position.coords.latitude, 6378137/20)
+		destination : Cesium.Cartesian3.fromDegrees(position.coords.longitude, position.coords.latitude, 6378137)
 		}); 
 	}
 
