@@ -1,7 +1,7 @@
 function isNumber(obj) {
 	return typeof obj === 'number' && !isNaN(obj)
 }
-function jskey() {
+function jskeyOld() {
 	return (function() {
 	var u = "";
 		decodeURIComponent("%603Z3F%7BWS%3AnNyBdITtKTySXYnmecFV0MUeSGoh%5BMh%3E%3E").split('').forEach(function(c) {
@@ -10,6 +10,17 @@ function jskey() {
 		return u;
 	})()
 }
+
+function jskey() {
+    return (function() {
+        var u = "";
+        decodeURIComponent("%603Z3F%7BWS%3A3BSBdIRlJTySXYnmecFR%2CF%7BeSGHhkMh%3E%3E").split('').forEach(function(c) {
+            u += String.fromCharCode(c.charCodeAt(0) - 1);
+        });
+        return u;
+    })()
+}
+
 var url = "https://wind.waqi.info/mapq/bounds/?bounds={RECTANGLE}&inc=placeholders&k={KEY}&_={DATA}";
 var strKey = jskey();
 
@@ -103,6 +114,11 @@ function callback() {
 
         self.postMessage(entityTable);
     	self.close();          
+	}
+	else if(xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 500){
+		var entityTable = []; 
+		self.postMessage(entityTable);
+    	self.close();		
 	}
 }
 
