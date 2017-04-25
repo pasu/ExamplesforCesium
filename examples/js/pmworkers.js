@@ -1,3 +1,7 @@
+/**
+* https://github.com/pasu/ExamplesforCesium
+* get pm index from waqi data
+ */
 function isNumber(obj) {
 	return typeof obj === 'number' && !isNaN(obj)
 }
@@ -21,7 +25,8 @@ function jskey() {
     })()
 }
 
-var url = "https://wind.waqi.info/mapq/bounds/?bounds={RECTANGLE}&inc=placeholders&k={KEY}&_={DATA}";
+//var url = "https://wind.waqi.info/mapq/bounds/?bounds={RECTANGLE}&inc=placeholders&k={KEY}&_={DATA}";
+var url = "https://api.waqi.info/mapq/bounds/?bounds={RECTANGLE}&inc=placeholders&k={KEY}&_={DATA}";
 var strKey = jskey();
 
 var table = [{ level:"一级（优）",influence:"空气质量令人满意，基本无空气污染",suggestion:"	各类人群可正常活动"}, 
