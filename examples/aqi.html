@@ -57,28 +57,69 @@ function draw() {
 	imgData=ctx.getImageData(0,0,nWidth,1);
 }
 var currentRectangle,bWorking;
-	
+var currentData;
+var bHeatMap = false;
+var heatLayer = null;
 
-function onload(Cesium) {
+function getData(){
+	var points = [];
+	var maxValue = 0,minValue = 0;
+
+	for (var i = currentData.length - 1; i >= 0; i--) {
+		var x = currentData[i].lon;
+		var y = currentData[i].lat;
+		var value = currentData[i].aqiValue;
+
+		maxValue = Math.max(maxValue, value);
+		minValue = Math.min(minValue,value);
+
+		points.push({
+			x : x,
+			y : y,
+			value : value
+		});
+	}
+	var data = {max: maxValue, points: points,min : minValue};
+	return data;
+}
+
+function getBounds(){
+	var bounds = {
+			north : currentRectangle.north * 180.0 / Math.PI,
+			west : currentRectangle.west* 180.0 / Math.PI,
+			south : currentRectangle.south* 180.0 / Math.PI,
+			east : currentRectangle.east* 180.0 / Math.PI
+	};
+	return bounds;
+}	
+
+function onload(Cesium,CesiumHeatmap) {
+	Sandcastle.addToolbarButton('HeatMap', function() {		
+		var data = getData();
+		var bounds = getBounds();
+				
+		var provider = new Cesium.HeatmapImageryProvider({
+			data : data,
+			bounds : bounds,
+			chInstance : CesiumHeatmap
+		});
+		var layer = viewer.imageryLayers.addImageryProvider(provider);
+		viewer.entities.removeAll();
+		if (heatLayer != null){
+				viewer.imageryLayers.remove(heatLayer);
+				heatLayer = layer;	
+		}else{
+			heatLayer = layer;
+		} 
+	});
+
 	var viewer = new Cesium.Viewer('cesiumContainer', {
-			imageryProvider : new Cesium.WebMapTileServiceImageryProvider({
-				url : 'http://t0.tianditu.com/img_w/wmts?',
-				layer : 'img',
-				style : 'default',
-				format : 'tiles',
-				tileMatrixSetID : 'w',
-				credit : new Cesium.Credit('天地图全球影像服务'),
-				maximumLevel : 18
-			}),
+			imageryProvider:new Cesium.SingleTileImageryProvider({
+                url : './images/2016c.jpg'
+            }),
 			baseLayerPicker : false,
 			geocoder:true
 		});
-	
-	/*viewer.scene.camera.flyTo({
-		destination : Cesium.Cartesian3.fromDegrees(116.46, 39.92, 6378137/20),
-		duration : 0.1
-	}); 
-	*/
 				
     viewer.scene.globe.depthTestAgainstTerrain = false;
 
@@ -131,7 +172,7 @@ function onload(Cesium) {
 					bWorking = true;
 					
 					send.onmessage = function (event) {
-						var currentData = event.data.entityTable;
+						currentData = event.data.entityTable;
 						var currentDate = event.data.date;
 						if(currentData.length != 0 && currentDate>startTimestamp){
 							//viewer.entities.removeAll();

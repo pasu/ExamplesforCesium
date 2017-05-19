@@ -1,15 +1,18 @@
-var developMode = false;
+var developMode = true;
 
 if(developMode){
 	require.config({
 	baseUrl : '../Source',
 
     paths: {
-        echarts: '../examples/js/echarts.simple.min'
+        echarts: '../examples/js/echarts.simple.min',
+        CesiumHeatmap : '../examples/js/heatmap.min',
     },
     shim: {
+        CesiumHeatmap : {
+			exports : "CesiumHeatmap"
+		},
         echarts : {
-
             exports : 'echarts'
         }
     }
@@ -18,9 +21,13 @@ if(developMode){
 	require.config({
 		  paths: {
 				'Cesium': '../../Build/Cesium/Cesium',
-              'echarts': './echarts.simple.min'
+                'echarts': './echarts.simple.min',
+                'CesiumHeatmap' : './heatmap.min',
 		  },
 		  shim: {
+              CesiumHeatmap : {
+			  	exports : "CesiumHeatmap"
+			  },
 			  Cesium: {
 				  exports: 'Cesium'
 			  },
@@ -31,8 +38,8 @@ if(developMode){
 	});
 }
 
-if (typeof Cesium !== "undefined" && typeof echarts !== "undefined") {
-    onload(Cesium,echarts);
+if (typeof Cesium !== "undefined" && typeof echarts !== "undefined" && typeof CesiumHeatmap !== "undefined") {
+    onload(Cesium,CesiumHeatmap,echarts);
 } else if (typeof require === "function") {
-    require(["Cesium","echarts"], onload);
+    require(["Cesium","CesiumHeatmap","echarts"], onload);
 }
