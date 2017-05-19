@@ -5,6 +5,6 @@ If you are interested in it, you can download ExamplesforCesium and place it in 
 Then, you can browser these examples 
 
 [***天地图范例***](https://pasu.github.io/ExamplesforCesium/examples/tianditu.html)
-
+![image](https://github.com/pasu/ExamplesforCesium/raw/master/images/tianditu.png)
 
 [***全球AQI范例***](https://pasu.github.io/ExamplesforCesium/examples/aqi.html)
