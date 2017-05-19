@@ -13,3 +13,9 @@ Then, you can browser these examples
 
 
 ![image](https://raw.githubusercontent.com/pasu/ExamplesforCesium/master/images/aqi.jpg)
+
+
+[***Night Map comparison***](https://pasu.github.io/ExamplesforCesium/examples/split.html)
+
+
+![image](https://raw.githubusercontent.com/pasu/ExamplesforCesium/master/images/split.jpg)
