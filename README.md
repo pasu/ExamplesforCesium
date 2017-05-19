@@ -5,7 +5,7 @@ If you are interested in it, you can download ExamplesforCesium and place it in 
 Then, you can browser these examples 
 
 [***TianDiTu Imagery Provider***](https://pasu.github.io/ExamplesforCesium/examples/tianditu.html)
-![image](https://github.com/pasu/ExamplesforCesium/master/images/tianditu.png)
+![image](https://raw.githubusercontent.com/pasu/ExamplesforCesium/master/images/tianditu.png)
 
 [***Global Real-Time AQI Map with HeatMap***](https://pasu.github.io/ExamplesforCesium/examples/aqi.html)
-![image](https://github.com/pasu/ExamplesforCesium/master/images/aqi.png)
+![image](https://raw.githubusercontent.com/pasu/ExamplesforCesium/master/images/aqi.png)
