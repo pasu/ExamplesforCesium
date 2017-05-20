@@ -20,7 +20,7 @@ Then, you can browser these examples
 
 ![image](https://raw.githubusercontent.com/pasu/ExamplesforCesium/master/images/split.jpg)
 
-[***Global Temperature Trend during the last 10 years***](https://pasu.github.io/ExamplesforCesium/examples/landtemperature.html)
+[***Global Temperature Trend in the last two decades***](https://pasu.github.io/ExamplesforCesium/examples/landtemperature.html)
 
 
 ![image](https://raw.githubusercontent.com/pasu/ExamplesforCesium/master/images/temperature.jpg)
