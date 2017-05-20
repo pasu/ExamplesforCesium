@@ -15,11 +15,27 @@
             margin: 1px;
             padding: 0px 0px;
             position: absolute;
-            left: 1100px;
-            top: 650px;
+            left: 0px;
+            top: 0px;
             width:800px;
             height:300px;
             background-color:rgba(38, 38, 38, 0.75)
+        }
+         #toolbar {
+            margin: 1px;
+            padding: 0px 0px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width:400px;
+            height:50px;
+            background-color:rgba(38, 38, 38, 0.75);
+            color:#ffffff;
+        }
+        #toolbar input {
+            vertical-align: middle;
+            padding-top: 2px;
+            padding-bottom: 2px;
         }
     </style>
 </head>
@@ -27,24 +43,60 @@
 <div id="tempStatis" style="z-index:100">
 </div>
 <div id="cesiumContainer"></div>
+<div id="toolbar" style="z-index:100">
+<table>
+    <tbody>
+    <tr>
+        <td>Frame Rate</td>
+        <td>
+            <input type="range" min="1" max="60" step="1" data-bind="value: days, valueUpdate: 'input'">
+            <input type="text" size="5" data-bind="value: days">
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
 
 <script>
     var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var clock;
+
+    var viewModel = {
+        days: 0
+    };
+    var defaultDays = 7;
 
     function onload(Cesium,CesiumHeatmap,echarts) {
+        ///////////////////////////////
+        Cesium.knockout.track(viewModel);
+        var toolbar = document.getElementById('toolbar');
+        Cesium.knockout.applyBindings(viewModel, toolbar);
+
+        function subscribeLayerParameter(name) {
+            Cesium.knockout.getObservable(viewModel, name).subscribe(
+                function(newValue) {
+                    if(clock){
+                        clock.multiplier = 1*60*60*24*newValue;                                   
+                    }
+                }
+            );
+        }
+        subscribeLayerParameter('days');
+        viewModel.days = defaultDays;
+        ///////////////////////////////
         var startDay = new Date("1 2,2006");
         var endDay = new Date("12 30,2016");
         var startTime = Cesium.JulianDate.fromDate(startDay);
         var stopTime = Cesium.JulianDate.fromDate(endDay);
 
-        var clock = new Cesium.Clock({
+        clock = new Cesium.Clock({
             startTime : startTime,
             currentTime : startTime,
             Number:1,
             stopTime : stopTime,
             clockRange : Cesium.ClockRange.LOOP_STOP,
             clockStep : Cesium.ClockStep.SYSTEM_CLOCK_MULTIPLIER,
-            multiplier:1*60*60*24*7
+            multiplier:1*60*60*24*defaultDays
         });
 
         var viewer = new Cesium.Viewer('cesiumContainer',{
@@ -61,7 +113,7 @@
 
         var timeline = viewer.timeline;
         timeline.zoomTo(startTime,stopTime);
-
+        clock = viewer.clock;
         ///////////////////////////
         var dateArray = [];
 
