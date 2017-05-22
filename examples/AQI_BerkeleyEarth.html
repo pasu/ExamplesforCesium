@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>OpenStreetMap</title>
+    <title>Berkeley Earth</title>
     <link href="../Build/Cesium/Widgets/widgets.css" rel="stylesheet">
     <script type="text/javascript" src="./js/require.min.js" data-main="./js/main"></script>
 </head>
@@ -12,7 +12,7 @@
         var dateStr = padStr(temp.getUTCFullYear()) +
                     padStr(1 + temp.getUTCMonth()) +
                     padStr(temp.getUTCDate()) +
-                    padStr(temp.getUTCHours());
+                    padStr(temp.getUTCHours()-1);
         return dateStr;
     }
 
@@ -53,6 +53,8 @@
             if(options.timeMode == 'h'){
                templateUrl = dataSourceRoot + 'hour/' + current.substring(0,6) + "/" + current + '/tiles/health/' + "{z}/{x}/{y}.png";
             }
+			
+			//templateUrl = "http://localhost:8080/examples/examples/Proxy.jsp?url=" +encodeURIComponent(templateUrl);
             
 
             return new Cesium.UrlTemplateImageryProvider({
@@ -77,7 +79,8 @@
             })
 		});
 
-       var aqiProvider = createAQIBerkeleyEarthProvider({timeMode:'h'});
+		var proxy = new Cesium.DefaultProxy("http://localhost:8080/examples/examples/Proxy.jsp");
+       var aqiProvider = createAQIBerkeleyEarthProvider({timeMode:'h',proxy:proxy});
         var imageryLayers = viewer.imageryLayers;
 
         imageryLayers.addImageryProvider(aqiProvider);
