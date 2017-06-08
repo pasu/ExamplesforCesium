@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+    <title>ArcGis Elevation</title>
+    <link href="../Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <script type="text/javascript" src="./js/require.min.js" data-main="./js/main"></script>
+</head>
+<body>
+<div id="cesiumContainer"></div>
+<script>
+    function onload(Cesium) {
+        var viewer = new Cesium.Viewer('cesiumContainer', {
+			imageryProvider : new Cesium.WebMapTileServiceImageryProvider({
+				url : 'http://t0.tianditu.com/img_w/wmts?',
+				layer : 'img',
+				style : 'default',
+				format : 'tiles',
+				tileMatrixSetID : 'w',
+				credit : new Cesium.Credit('天地图全球影像服务'),
+				maximumLevel : 18
+			}),
+			baseLayerPicker : false
+		});
+
+        viewer.extend(Cesium.viewerCesiumInspectorMixin);
+
+        viewer.cesiumInspector.viewModel.performance = true;
+        var terrainProvider = new Cesium.ArcGisImageServerTerrainProvider();
+        viewer.terrainProvider = terrainProvider;
+    }
+</script>
+</body>
