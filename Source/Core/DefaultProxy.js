@@ -23,7 +23,7 @@ define(function() {
      */
     DefaultProxy.prototype.getURL = function(resource) {
         var prefix = this.proxy.indexOf('?') === -1 ? '?' : '';
-        return this.proxy + prefix + encodeURIComponent(resource);
+        return this.proxy + prefix + resource;
     };
 
     return DefaultProxy;
