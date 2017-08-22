@@ -4,23 +4,7 @@ I am writing a serie of articles about Cesium and here are the examples mentione
 If you are interested in it, you can download ExamplesforCesium and place it in the same level of Source Folder        
 Then, you can browser these examples 
 
-[***TianDiTu Imagery Provider***](https://pasu.github.io/ExamplesforCesium/examples/tianditu.html)
+[***Index***](https://pasu.github.io/ExamplesforCesium/examples/index.html)
 
 
-![image](https://raw.githubusercontent.com/pasu/ExamplesforCesium/master/images/tianditu.jpg)
-
-[***Global Real-Time AQI Map with HeatMap***](https://pasu.github.io/ExamplesforCesium/examples/aqi.html)
-
-
-![image](https://raw.githubusercontent.com/pasu/ExamplesforCesium/master/images/aqi.jpg)
-
-
-[***Night Map comparison***](https://pasu.github.io/ExamplesforCesium/examples/split.html)
-
-
-![image](https://raw.githubusercontent.com/pasu/ExamplesforCesium/master/images/split.jpg)
-
-[***Global Temperature Trend in the last decade***](https://pasu.github.io/ExamplesforCesium/examples/landtemperature.html)
-
-
-![image](https://raw.githubusercontent.com/pasu/ExamplesforCesium/master/images/temperature.jpg)
+![image](https://raw.githubusercontent.com/pasu/ExamplesforCesium/master/images/main.jpg)
