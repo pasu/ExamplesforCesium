@@ -1,0 +1,27 @@
+<!--
+	How to load OSM server with MapboxImageryProvider
+-->
+<!DOCTYPE html>
+<head>
+    <title>OpenStreetMap</title>
+    <link href="../Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <script type="text/javascript" src="./js/require.min.js" data-main="./js/main"></script>
+</head>
+<body>
+<div id="cesiumContainer"></div>
+<script>
+    function onload(Cesium) {
+        var viewer = new Cesium.Viewer('cesiumContainer', {
+            imageryProvider :Cesium.createOpenStreetMapImageryProvider({
+                url : 'https://a.tile.openstreetmap.org/'
+            }),
+            baseLayerPicker : false
+        });
+
+        var test = new Cesium.TileCoordinatesImageryProvider({tilingScheme:new Cesium.WebMercatorTilingScheme()});
+        var imageryLayers = viewer.imageryLayers;
+
+        imageryLayers.addImageryProvider(test);
+    };
+</script>
+</body>

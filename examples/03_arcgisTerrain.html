@@ -1,0 +1,46 @@
+<!--
+	Format:https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer/tile/{z}/{y}/{x}
+	At first, I use HttpDebugger find this server, because ArcGIS Earth use this elevation3d server
+	Although it is height map form, in China, it is not easy to visit STK Terrain, it is also an appropriate solution.
+	Then I watched the tile content and the header is "CntZImage" which is the arcgis/lerc compression
+	Eventually, I create the ArcGisImageServerTerrainProvider class, so we can load thise terrain server easily, and you can download this file in Source/Core freely.
+	Note: ArcGIS HeightMap Terrain Server is WebMercatorTilingScheme.
+	There is a bug but I could not fix it without modifying the source code. For example, in level 13, I found some tiles have no height data,
+	the data is always 0, you can still request this tile. So, the state is TerrainState.RECEIVED
+-->
+<!DOCTYPE html>
+<head>
+    <title>ArcGis Elevation</title>
+    <link href="../Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <script type="text/javascript" src="./js/require.min.js" data-main="./js/main"></script>
+</head>
+<body>
+<div id="cesiumContainer"></div>
+<script>
+    function onload(Cesium) {
+        var viewer = new Cesium.Viewer('cesiumContainer', {
+			imageryProvider : new Cesium.WebMapTileServiceImageryProvider({
+				url : 'http://t0.tianditu.com/img_w/wmts?',
+				layer : 'img',
+				style : 'default',
+				format : 'tiles',
+				tileMatrixSetID : 'w',
+				credit : new Cesium.Credit('天地图全球影像服务'),
+				maximumLevel : 18
+			}),
+			baseLayerPicker : false
+		});
+
+        viewer.extend(Cesium.viewerCesiumInspectorMixin);
+
+        viewer.cesiumInspector.viewModel.performance = true;
+        var terrainProvider = new Cesium.ArcGisImageServerTerrainProvider();
+		viewer.terrainProvider = terrainProvider;
+		
+		var target = new Cesium.Cartesian3(300770.50872389384, 5634912.131394585, 2978152.2865545116);
+        var offset = new Cesium.Cartesian3(6344.974098678562, -793.3419798081741, 2499.9508860763162);
+        viewer.camera.lookAt(target, offset);
+        viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+    }
+</script>
+</body>

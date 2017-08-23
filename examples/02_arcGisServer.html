@@ -1,0 +1,32 @@
+<!--
+	How to load ArcGis Server with ArcGisMapServerImageryProvider
+-->
+<!DOCTYPE html>
+<head>
+    <title>ArcGIS</title>
+    <link href="../Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <script type="text/javascript" src="./js/require.min.js" data-main="./js/main"></script>
+</head>
+<body>
+<div id="cesiumContainer"></div>
+<script>
+    function onload(Cesium) {
+        var viewer = new Cesium.Viewer('cesiumContainer', {
+            imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
+                url : 'http://atlasmaps.esri.com/arcgis/rest/services/Esri/USA_Population_Density/MapServer',
+                enablePickFeatures : false
+            }),
+           baseLayerPicker : false
+        });
+
+        var test =  new Cesium.ArcGisMapServerImageryProvider({
+            url : 'http://atlasmaps.esri.com/arcgis/rest/services/Esri/USA_Population_Density/MapServer',
+            enablePickFeatures : false
+        });
+
+        var imageryLayers = viewer.imageryLayers;
+
+        imageryLayers.addImageryProvider(test);
+    };
+</script>
+</body>
