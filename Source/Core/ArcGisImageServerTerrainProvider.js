@@ -668,7 +668,6 @@ define([
                   if(mask&&mask[i*width*nRatio+j*nRatio]==0){
                     buffer[i*fWidth+j] = 0;                        
                   }else{
-                      //var pv = (pixels[i*width+j] - min) * f * 6.18;
                       buffer[i*fWidth+j] = pixels[i*width*nRatio+j*nRatio];
                   }                
                 }
@@ -681,21 +680,6 @@ define([
                 structure : that._terrainDataStructure
             });            
         });
-        // var promise = throttleRequestByServer(url, loadImage);
-        // if (!defined(promise)) {
-        //     return undefined;
-        // }
-
-        // var that = this;
-        // return when(promise, function(image) {
-        //     return new HeightmapTerrainData({
-        //         buffer : getImagePixels(image),
-        //         width : that._heightmapWidth,
-        //         height : that._heightmapWidth,
-        //         childTileMask : 15, // all children present
-        //         structure : that._terrainDataStructure
-        //     });
-        // });
     };
 
     /**
