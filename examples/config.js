@@ -119,8 +119,8 @@ var exampleConfig = {
     "Visualization": {
         name: "Visualization",
         content: {
-            "Environment&Planet": {
-                name: "Environment&Planet",
+            "Planet": {
+                name: "Planet",
                 content: [{
                     name: "Real AQI",
                     thumbnail: "20_aqi.jpg",
