@@ -9,7 +9,7 @@ var exampleConfig = {
     "Primer": {
         name: "Primer",
         content: {
-            "Hello Series": {
+            "Hello": {
                 name: "Hello Series",
                 content: [{
                     name: "Hello Cesium",
@@ -82,7 +82,7 @@ var exampleConfig = {
     "Widgets": {
         name: "Widgets",
         content: {
-            "Widgets Series": {
+            "Widgets": {
                 name: "Widgets Series",
                 content: [{
                     name: "Custom BasePicker",
