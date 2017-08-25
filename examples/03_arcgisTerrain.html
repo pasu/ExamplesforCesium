@@ -41,18 +41,22 @@
 
 			});
 
-			viewer.extend(Cesium.viewerCesiumInspectorMixin);
-
-			viewer.cesiumInspector.viewModel.performance = true;
 			viewer.terrainProvider = terrainProvider;
-			
-			var target = new Cesium.Cartesian3(300770.50872389384, 5634912.131394585, 2978152.2865545116);
-			var offset = new Cesium.Cartesian3(6344.974098678562, -793.3419798081741, 2499.9508860763162);
-			viewer.camera.lookAt(target, offset);
-			viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+
+			viewer.scene.camera.flyTo({
+				destination : Cesium.Cartesian3.fromDegrees(87.4074, 27.9254,5756.992959404834),
+				orientation : {
+					heading : 4.7702,
+					pitch : 0.0857,
+					roll : 0
+				}
+			});
+
 		}).otherwise(function(error) {
 			throw(error);
 		});
+
+		
     }
 </script>
 </body>
