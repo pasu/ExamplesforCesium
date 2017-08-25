@@ -119,7 +119,7 @@ var exampleConfig = {
     "Visualization": {
         name: "Visualization",
         content: {
-            "Visualization": {
+            "Environment&Planet": {
                 name: "Environment&Planet",
                 content: [{
                     name: "Real AQI",
@@ -137,6 +137,14 @@ var exampleConfig = {
                     name: "Imagery Layers Split",
                     thumbnail: "20_split.jpg",
                     fileName: "20_split"
+                }]
+            },
+            "MapV": {
+                name: "MapV",
+                content: [{
+                    name: "taxi flow",
+                    thumbnail: "21_taxisimulation.gif",
+                    fileName: "21_taxisimulation"
                 }]
             }
         }
