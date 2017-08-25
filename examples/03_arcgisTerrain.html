@@ -13,6 +13,7 @@
     <title>ArcGis Elevation</title>
     <link href="../Build/Cesium/Widgets/widgets.css" rel="stylesheet">
 	<script type="text/javascript" src="./js/require.min.js" data-main="./js/main"></script>
+	<script type="text/javascript" src="./cesium_ext/ArcGisImageServerTerrainProvider.js"></script>
 	<style>
         html, body, #cesiumContainer {
             width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
@@ -23,29 +24,35 @@
 <div id="cesiumContainer"></div>
 <script>
     function onload(Cesium) {
-        var viewer = new Cesium.Viewer('cesiumContainer', {
-			imageryProvider : new Cesium.WebMapTileServiceImageryProvider({
-				url : 'http://t0.tianditu.com/img_w/wmts?',
-				layer : 'img',
-				style : 'default',
-				format : 'tiles',
-				tileMatrixSetID : 'w',
-				credit : new Cesium.Credit('天地图全球影像服务'),
-				maximumLevel : 18
-			}),
-			baseLayerPicker : false
+		var terrainProvider = createArcGisElevation3DTerrainProvider(Cesium);
+		terrainProvider.readyPromise.then(function() {
+			var viewer = new Cesium.Viewer('cesiumContainer', {
+				terrainProvider:terrainProvider,
+				imageryProvider : new Cesium.WebMapTileServiceImageryProvider({
+					url : 'http://t0.tianditu.com/img_w/wmts?',
+					layer : 'img',
+					style : 'default',
+					format : 'tiles',
+					tileMatrixSetID : 'w',
+					credit : new Cesium.Credit('天地图全球影像服务'),
+					maximumLevel : 18
+				}),
+				baseLayerPicker : false,
+
+			});
+
+			viewer.extend(Cesium.viewerCesiumInspectorMixin);
+
+			viewer.cesiumInspector.viewModel.performance = true;
+			viewer.terrainProvider = terrainProvider;
+			
+			var target = new Cesium.Cartesian3(300770.50872389384, 5634912.131394585, 2978152.2865545116);
+			var offset = new Cesium.Cartesian3(6344.974098678562, -793.3419798081741, 2499.9508860763162);
+			viewer.camera.lookAt(target, offset);
+			viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+		}).otherwise(function(error) {
+			throw(error);
 		});
-
-        viewer.extend(Cesium.viewerCesiumInspectorMixin);
-
-        viewer.cesiumInspector.viewModel.performance = true;
-        var terrainProvider = new Cesium.ArcGisImageServerTerrainProvider();
-		viewer.terrainProvider = terrainProvider;
-		
-		var target = new Cesium.Cartesian3(300770.50872389384, 5634912.131394585, 2978152.2865545116);
-        var offset = new Cesium.Cartesian3(6344.974098678562, -793.3419798081741, 2499.9508860763162);
-        viewer.camera.lookAt(target, offset);
-        viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
     }
 </script>
 </body>

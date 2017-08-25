@@ -24,12 +24,7 @@
 			baseLayerPicker : false,
 			imageryProvider :new Cesium.SingleTileImageryProvider({
                 url : './images/globe.jpg'
-            }),
-			contextOptions : {
-				webgl: {
-					alpha: true
-				}
-			}
+            })
 		});
 		
 		viewer.scene.backgroundColor = Cesium.Color.TRANSPARENT;

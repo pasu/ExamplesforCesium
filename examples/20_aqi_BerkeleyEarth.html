@@ -88,9 +88,18 @@
                 url : './images/globe.jpg'
             })
 		});
-
-		var proxy = new Cesium.DefaultProxy("http://localhost:8080/examples/examples/Proxy.jsp");
-       var aqiProvider = createAQIBerkeleyEarthProvider({timeMode:'h',proxy:proxy});
+		
+		function BEProxy(proxy) {
+			this.proxy = proxy;
+		}
+		BEProxy.prototype.getURL = function(resource) {
+			var prefix = this.proxy.indexOf('?') === -1 ? '?' : '';
+			return this.proxy + prefix + resource;
+		};
+		
+		var proxy = new BEProxy("http://localhost:8080/examples/examples/Proxy.jsp");
+		
+		var aqiProvider = createAQIBerkeleyEarthProvider({timeMode:'h',proxy:proxy});
         var imageryLayers = viewer.imageryLayers;
 
         imageryLayers.addImageryProvider(aqiProvider);
