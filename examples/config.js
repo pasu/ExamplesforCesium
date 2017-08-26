@@ -145,6 +145,10 @@ var exampleConfig = {
                     name: "taxi flow",
                     thumbnail: "21_taxisimulation.gif",
                     fileName: "21_taxisimulation"
+                }, {
+                    name: "Flowing line",
+                    thumbnail: "21_lighter.jpg",
+                    fileName: "21_lighter"
                 }]
             }
         }
