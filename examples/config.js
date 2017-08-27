@@ -149,6 +149,10 @@ var exampleConfig = {
                     name: "Flowing line",
                     thumbnail: "21_lighter.jpg",
                     fileName: "21_lighter"
+                }, {
+                    name: "Message Points",
+                    thumbnail: "21_weibo.jpg",
+                    fileName: "21_weibo"
                 }]
             }
         }
