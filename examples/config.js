@@ -147,11 +147,11 @@ var exampleConfig = {
                     fileName: "21_taxisimulation"
                 }, {
                     name: "Flowing line",
-                    thumbnail: "21_lighter.jpg",
+                    thumbnail: "21_lighter.gif",
                     fileName: "21_lighter"
                 }, {
                     name: "Message Points",
-                    thumbnail: "21_weibo.jpg",
+                    thumbnail: "21_weibo.gif",
                     fileName: "21_weibo"
                 }]
             }
