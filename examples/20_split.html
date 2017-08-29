@@ -38,41 +38,48 @@
 		});
 
     var layers = viewer.imageryLayers;
-     var blackMarble = layers.addImageryProvider(new Cesium.SingleTileImageryProvider({
+    var blackMarble = layers.addImageryProvider(new Cesium.SingleTileImageryProvider({
                 url : './images/2012c.jpg'
             }),1);
-     blackMarble.splitDirection = Cesium.ImagerySplitDirection.RIGHT;
+    blackMarble.splitDirection = Cesium.ImagerySplitDirection.RIGHT;
 
-     var slider = document.getElementById('slider');
-     viewer.scene.imagerySplitPosition = (slider.offsetLeft) / slider.parentElement.offsetWidth;
+    var slider = document.getElementById('slider');
+    viewer.scene.imagerySplitPosition = (slider.offsetLeft) / slider.parentElement.offsetWidth;
 
-     var dragStartX = 0;
+    var handler = new Cesium.ScreenSpaceEventHandler(slider);
 
-     document.getElementById('slider').addEventListener('mousedown', mouseDown, false);
-     document.getElementById('slider').addEventListener('touchstart', mouseDown, false);
-     window.addEventListener('mouseup', mouseUp, false);
-     window.addEventListener('touchend', mouseUp, false);
+    var bMoveActive = false;
 
-     function mouseUp() {
-         window.removeEventListener('mousemove', sliderMove, true);
-         window.removeEventListener('touchmove', sliderMove, true);
-     }
+    function move(movement){
+        if(!bMoveActive)
+            return;
 
-     function mouseDown(e) {
-         var slider = document.getElementById('slider');
-         var nPos = e.clientX != undefined?e.clientX:e.changedTouches[0].clientX;
-         dragStartX = nPos - slider.offsetLeft;
-         window.addEventListener('mousemove', sliderMove, true);
-         window.addEventListener('touchmove', sliderMove, true);
-     }
+        var nMove = movement.endPosition.x ;//- movement.startPosition.x;
+        var splitPosition = (slider.offsetLeft + nMove) / slider.parentElement.offsetWidth;
+        slider.style.left = 100.0 * splitPosition + "%";
+        viewer.scene.imagerySplitPosition = splitPosition;
+    }
 
-     function sliderMove(e) {
-         var slider = document.getElementById('slider');
-         var nPos = e.clientX != undefined?e.clientX:e.changedTouches[0].clientX;
-         var splitPosition = (nPos - dragStartX) / slider.parentElement.offsetWidth;
-         slider.style.left = 100.0 * splitPosition + "%";
-         viewer.scene.imagerySplitPosition = splitPosition;
-     }
-    };
+    handler.setInputAction(function(movement) {
+        bMoveActive = true;
+    }, Cesium.ScreenSpaceEventType.LEFT_DOWN);
+    handler.setInputAction(function(movement) {
+        bMoveActive = true;
+    }, Cesium.ScreenSpaceEventType.PINCH_START);
+
+    handler.setInputAction(function(movement) {
+        move(movement);
+    }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+    handler.setInputAction(function(movement) {
+        move(movement);
+    }, Cesium.ScreenSpaceEventType.PINCH_MOVE);
+
+    handler.setInputAction(function(movement) {
+        bMoveActive = false;
+    }, Cesium.ScreenSpaceEventType.LEFT_UP);
+    handler.setInputAction(function(movement) {
+        bMoveActive = false;
+    }, Cesium.ScreenSpaceEventType.PINCH_END);
+};
 </script>
 </body>
