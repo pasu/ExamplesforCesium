@@ -16,6 +16,10 @@ var exampleConfig = {
                     thumbnail: "00_hello.jpg",
                     fileName: "00_hello"
                 }, {
+                    name: "requirejs-shim",
+                    thumbnail: "00_requirejs-shim.jpg",
+                    fileName: "00_requirejs-shim"
+                },{
                     name: "Hello Cesium(requirejs)",
                     thumbnail: "00_hello.jpg",
                     fileName: "00_hello-requirejs"
