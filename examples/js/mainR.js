@@ -2,7 +2,7 @@ require.config({
 	  waitSeconds : 600,
 	  baseUrl : './js',
 	  paths: {
-		jquery:"jquery.min"
+			jquery:"jquery.min"
 	  }
 });
 

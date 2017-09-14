@@ -15,6 +15,18 @@
 <body>
 <div id="cesiumContainer"></div>
 <script>
-    var viewer = new Cesium.Viewer('cesiumContainer');
+    var viewer = new Cesium.Viewer('cesiumContainer',{
+        animation:false,
+        baseLayerPicker:false,
+        fullscreenButton:false,
+        vrButton:false,
+        geocoder:false,
+        homeButton:false,
+        infoBox:false,
+        sceneModePicker:false,
+        timeline:false,
+        navigationHelpButton:false,
+        navigationInstructionsInitiallyVisible:false,
+    });
 </script>
 </body>

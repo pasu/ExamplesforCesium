@@ -1,15 +1,14 @@
 require.config({
-	  waitSeconds : 600,
-	  baseUrl : './js',
-	  paths: {
-			jquery:"jquery.min",
-			calc: 'calc'
-		},
+	baseUrl : './js',
+	paths: {
+		jquery:"jquery.min",
+		calc: 'calc'
+	},
     shim:{
-			calc:{
-				deps: [],
-				exports: 'calc'
-      }
+		calc:{
+			deps: [],
+			exports: 'calc'
+    	}
     }
 });
 
