@@ -6,24 +6,131 @@
 <head>
     <title>BingMap</title>
     <link href="../Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <script src="./js/Sandcastle-header.js"></script>
     <script type="text/javascript" src="./js/require.min.js" data-main="./js/main"></script>
     <style>
         html, body, #cesiumContainer {
             width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
         }
+        #toolbar{
+            margin: 5px;
+            padding: 2px 5px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
     </style>
 </head>
 <body>
 <div id="cesiumContainer"></div>
+<div id="toolbar"></div>
 <script>
     function onload(Cesium) {
+        var bAERIAL = new Cesium.BingMapsImageryProvider({
+            url : 'https://dev.virtualearth.net',
+            mapStyle : Cesium.BingMapsStyle.AERIAL,
+            culture:"zh-Hans",
+            key:"AihaXS6TtE_olKOVdtkMenAMq1L5nDlnU69mRtNisz1vZavr1HhdqGRNkB2Bcqvs"
+        });
         var viewer = new Cesium.Viewer('cesiumContainer', {
-            imageryProvider :new Cesium.BingMapsImageryProvider({
-                url : 'https://dev.virtualearth.net',
-                mapStyle : Cesium.BingMapsStyle.AERIAL
-            }),
+            imageryProvider :bAERIAL,
             baseLayerPicker : false
         });
+
+        var bAERIAL_WITH_LABELS  = new Cesium.BingMapsImageryProvider({
+            url : 'https://dev.virtualearth.net',
+            mapStyle : Cesium.BingMapsStyle.AERIAL_WITH_LABELS
+        });
+
+        var bCANVAS_DARK  = new Cesium.BingMapsImageryProvider({
+            url : 'https://dev.virtualearth.net',
+            mapStyle : Cesium.BingMapsStyle.CANVAS_DARK
+        });
+
+        var bCANVAS_GRAY  = new Cesium.BingMapsImageryProvider({
+            url : 'https://dev.virtualearth.net',
+            mapStyle : Cesium.BingMapsStyle.CANVAS_GRAY 
+        });
+
+        var bCANVAS_LIGHT  = new Cesium.BingMapsImageryProvider({
+            url : 'https://dev.virtualearth.net',
+            mapStyle : Cesium.BingMapsStyle.CANVAS_LIGHT 
+        });
+
+        var bCOLLINS_BART  = new Cesium.BingMapsImageryProvider({
+            url : 'https://dev.virtualearth.net',
+            mapStyle : Cesium.BingMapsStyle.COLLINS_BART 
+        });
+
+        var bORDNANCE_SURVEY  = new Cesium.BingMapsImageryProvider({
+            url : 'https://dev.virtualearth.net',
+            mapStyle : Cesium.BingMapsStyle.ORDNANCE_SURVEY 
+        });
+
+        var bROAD  = new Cesium.BingMapsImageryProvider({
+            url : 'https://dev.virtualearth.net',
+            mapStyle : Cesium.BingMapsStyle.ROAD 
+        });
+
+        var imageryLayers = viewer.imageryLayers;
+        Sandcastle.addDefaultToolbarMenu([{
+            text : 'AERIAL',
+            onselect : function(){
+                var baseLayer = imageryLayers.get(0);
+                imageryLayers.addImageryProvider(bAERIAL,1);
+                imageryLayers.remove(baseLayer);
+            }
+        },{
+            text : 'AERIAL_WITH_LABELS',
+            onselect : function(){
+                var baseLayer = imageryLayers.get(0);
+                imageryLayers.addImageryProvider(bAERIAL_WITH_LABELS,1);
+                imageryLayers.remove(baseLayer);
+            }
+        },{
+            text : 'CANVAS_DARK ',
+            onselect : function(){
+                var baseLayer = imageryLayers.get(0);
+                imageryLayers.addImageryProvider(bCANVAS_DARK ,1);
+                imageryLayers.remove(baseLayer);
+            }
+        },{
+            text : 'CANVAS_GRAY ',
+            onselect : function(){
+                var baseLayer = imageryLayers.get(0);
+                imageryLayers.addImageryProvider(bCANVAS_GRAY ,1);
+                imageryLayers.remove(baseLayer);
+            }
+        },{
+            text : 'CANVAS_LIGHT ',
+            onselect : function(){
+                var baseLayer = imageryLayers.get(0);
+                imageryLayers.addImageryProvider(bCANVAS_LIGHT ,1);
+                imageryLayers.remove(baseLayer);
+            }
+        },{
+            text : 'COLLINS_BART  ',
+            onselect : function(){
+                var baseLayer = imageryLayers.get(0);
+                imageryLayers.addImageryProvider(bCOLLINS_BART  ,1);
+                imageryLayers.remove(baseLayer);
+            }
+        },{
+            text : 'ORDNANCE_SURVEY ',
+            onselect : function(){
+                var baseLayer = imageryLayers.get(0);
+                imageryLayers.addImageryProvider(bORDNANCE_SURVEY ,1);
+                imageryLayers.remove(baseLayer);
+            }
+        },{
+            text : 'ROAD ',
+            onselect : function(){
+                var baseLayer = imageryLayers.get(0);
+                imageryLayers.addImageryProvider(bROAD ,1);
+                imageryLayers.remove(baseLayer);
+            }
+        }]);
+
     };
 </script>
 </body>
