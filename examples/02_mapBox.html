@@ -24,158 +24,57 @@
 <div id="cesiumContainer"></div>
 <div id="toolbar"></div>
 <script>
+    var mapboxProviders = [];
+    var mapboxProviderMenu = [];
+
     function onload(Cesium) {
-        var msatellite = new Cesium.MapboxImageryProvider({
-                mapId: 'mapbox.satellite'
-        });
-        var mstreets = new Cesium.MapboxImageryProvider({
-                mapId: 'mapbox.streets'
-        });
-        var mlight = new Cesium.MapboxImageryProvider({
-                mapId: 'mapbox.light'
-        });
-        var mdark = new Cesium.MapboxImageryProvider({
-                mapId: 'mapbox.dark'
-        });
-        var mstreetssatellite = new Cesium.MapboxImageryProvider({
-                mapId: 'mapbox.streets-satellite'
-        });
-        var mwheatpaste = new Cesium.MapboxImageryProvider({
-                mapId: 'mapbox.wheatpaste'
-        });
-        var mstreetsbasic = new Cesium.MapboxImageryProvider({
-                mapId: 'mapbox.streets-basic'
-        });
-        var msatellite = new Cesium.MapboxImageryProvider({
-                mapId: 'mapbox.satellite'
-        });
-        var msatellite = new Cesium.MapboxImageryProvider({
-                mapId: 'mapbox.satellite'
-        });
-        var mcomic = new Cesium.MapboxImageryProvider({
-                mapId: 'mapbox.comic'
-        });
-        var moutdoors = new Cesium.MapboxImageryProvider({
-                mapId: 'mapbox.outdoors'
-        });
-        var mrunbikehike = new Cesium.MapboxImageryProvider({
-                mapId: 'mapbox.run-bike-hike'
-        });
-        var mpencil = new Cesium.MapboxImageryProvider({
-                mapId: 'mapbox.pencil'
-        });
-        var mpirates = new Cesium.MapboxImageryProvider({
-                mapId: 'mapbox.pirates'
-        });
-        var mhighcontrast = new Cesium.MapboxImageryProvider({
-                mapId: 'mapbox.high-contrast'
-        });
+        var mapboxStyle = ['mapbox.satellite',
+                            'mapbox.streets',
+                            'mapbox.light',
+                            'mapbox.dark',
+                            'mapbox.streets-satellite',
+                            'mapbox.wheatpaste',
+                            'mapbox.streets-basic',
+                            'mapbox.comic',
+                            'mapbox.outdoors',
+                            'mapbox.run-bike-hike',
+                            'mapbox.pencil',
+                            'mapbox.pirates',
+                            'mapbox.emerald',
+                            'mapbox.high-contrast'];
+        (function(){
+            for(var i=0; i<mapboxStyle.length;i++){
+                var imageryProvider = new Cesium.MapboxImageryProvider({
+                    mapId: mapboxStyle[i]
+                });
+
+                mapboxProviders.push(imageryProvider);
+            }
+        }());
+
+        (function(){
+            for(var i=0; i<mapboxStyle.length;i++){
+                var obj = {
+                            text : mapboxStyle[i],
+                            onselect : function(index){
+                                return function(){
+                                    var baseLayer = imageryLayers.get(0);
+                                    imageryLayers.addImageryProvider(mapboxProviders[index],1);
+                                    imageryLayers.remove(baseLayer);
+                                }
+                            }(i)
+                          };
+                mapboxProviderMenu.push(obj);
+            }           
+        }());
 
         var viewer = new Cesium.Viewer('cesiumContainer', {
-            imageryProvider :mstreets,
+            imageryProvider :mapboxProviders[0],
             baseLayerPicker : false
         });
 
         var imageryLayers = viewer.imageryLayers;
-        Sandcastle.addDefaultToolbarMenu([{
-            text : 'streets',
-            onselect : function(){
-                var baseLayer = imageryLayers.get(0);
-                imageryLayers.addImageryProvider(mstreets,1);
-                imageryLayers.remove(baseLayer);
-            }
-        },{
-            text : 'light',
-            onselect : function(){
-                var baseLayer = imageryLayers.get(0);
-                imageryLayers.addImageryProvider(mlight,1);
-                imageryLayers.remove(baseLayer);
-            }
-        },{
-            text : 'dark ',
-            onselect : function(){
-                var baseLayer = imageryLayers.get(0);
-                imageryLayers.addImageryProvider(mdark ,1);
-                imageryLayers.remove(baseLayer);
-            }
-        },{
-            text : 'satellite ',
-            onselect : function(){
-                var baseLayer = imageryLayers.get(0);
-                imageryLayers.addImageryProvider(msatellite ,1);
-                imageryLayers.remove(baseLayer);
-            }
-        },{
-            text : 'streets-satellite ',
-            onselect : function(){
-                var baseLayer = imageryLayers.get(0);
-                imageryLayers.addImageryProvider(mstreetssatellite ,1);
-                imageryLayers.remove(baseLayer);
-            }
-        },{
-            text : 'wheatpaste  ',
-            onselect : function(){
-                var baseLayer = imageryLayers.get(0);
-                imageryLayers.addImageryProvider(mwheatpaste  ,1);
-                imageryLayers.remove(baseLayer);
-            }
-        },{
-            text : 'streets-basic ',
-            onselect : function(){
-                var baseLayer = imageryLayers.get(0);
-                imageryLayers.addImageryProvider(mstreetsbasic ,1);
-                imageryLayers.remove(baseLayer);
-            }
-        },{
-            text : 'comic ',
-            onselect : function(){
-                var baseLayer = imageryLayers.get(0);
-                imageryLayers.addImageryProvider(mcomic ,1);
-                imageryLayers.remove(baseLayer);
-            }
-        },{
-            text : 'outdoors ',
-            onselect : function(){
-                var baseLayer = imageryLayers.get(0);
-                imageryLayers.addImageryProvider(moutdoors ,1);
-                imageryLayers.remove(baseLayer);
-            }
-        },{
-            text : 'run-bike-hike ',
-            onselect : function(){
-                var baseLayer = imageryLayers.get(0);
-                imageryLayers.addImageryProvider(mrunbikehike ,1);
-                imageryLayers.remove(baseLayer);
-            }
-        },{
-            text : 'pencil ',
-            onselect : function(){
-                var baseLayer = imageryLayers.get(0);
-                imageryLayers.addImageryProvider(mpencil ,1);
-                imageryLayers.remove(baseLayer);
-            }
-        },{
-            text : 'pirates  ',
-            onselect : function(){
-                var baseLayer = imageryLayers.get(0);
-                imageryLayers.addImageryProvider(mpirates  ,1);
-                imageryLayers.remove(baseLayer);
-            }
-        },{
-            text : 'emerald ',
-            onselect : function(){
-                var baseLayer = imageryLayers.get(0);
-                imageryLayers.addImageryProvider(memerald ,1);
-                imageryLayers.remove(baseLayer);
-            }
-        },{
-            text : 'high-contrast ',
-            onselect : function(){
-                var baseLayer = imageryLayers.get(0);
-                imageryLayers.addImageryProvider(mhighcontrast ,1);
-                imageryLayers.remove(baseLayer);
-            }
-        }]);
+        Sandcastle.addDefaultToolbarMenu(mapboxProviderMenu);
     };
 </script>
 </body>
