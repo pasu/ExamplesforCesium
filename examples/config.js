@@ -48,6 +48,10 @@ var exampleConfig = {
                     thumbnail: "02_mapbox.jpg",
                     fileName: "02_mapBox"
                 },{
+                    name: "AMap",
+                    thumbnail: "02_amap.jpg",
+                    fileName: "02_amap"
+                },{
                     name: "WMTS for 天地图",
                     thumbnail: "02_tianditu.jpg",
                     fileName: "02_tianditu"
