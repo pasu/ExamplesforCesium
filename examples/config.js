@@ -48,6 +48,10 @@ var exampleConfig = {
                     thumbnail: "02_mapbox.jpg",
                     fileName: "02_mapBox"
                 },{
+                    name: "MapBox Vector Tile",
+                    thumbnail: "02_mvt.jpg",
+                    fileName: "02_mvt"
+                },{
                     name: "AMap",
                     thumbnail: "02_amap.jpg",
                     fileName: "02_amap"
