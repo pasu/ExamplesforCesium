@@ -24,7 +24,7 @@ function createMVTWithStyle(Cesium,ol,createMapboxStreetsV6Style,options) {
         this._replays =  ["Default","Image","Polygon", "LineString","Text"];
 
         this._tileQueue = new Cesium.TileReplacementQueue();
-        this._cacheSize = 500;
+        this._cacheSize = 1000;
     }
 
     Cesium.defineProperties(MVTProvider.prototype, {
@@ -113,7 +113,7 @@ function createMVTWithStyle(Cesium,ol,createMapboxStreetsV6Style,options) {
 
     function findTileInQueue(x, y, level,tileQueue){
         var item = tileQueue.head;
-        while(item != undefined && !(item.x == x && item.y ==y && item.z == level)){
+        while(item != undefined && !(item.xMvt == x && item.yMvt ==y && item.zMvt == level)){
             item = item.replacementNext;
         }
         return item;
@@ -160,15 +160,9 @@ function createMVTWithStyle(Cesium,ol,createMapboxStreetsV6Style,options) {
     };
 
     MVTProvider.prototype.requestImage = function(x, y, level, request) {
-        var _replayGroup = findTileInQueue(x, y, level,this._tileQueue);
-        if(_replayGroup != undefined){
-            var canvas = document.createElement('canvas');
-            canvas.width = 512;
-            canvas.height = 512;
-            var vectorContext = canvas.getContext('2d');
-
-            _replayGroup.replay(vectorContext, this._pixelRatio, this._transform, 0, {}, this._replays, true);
-            return canvas;
+        var cacheTile = findTileInQueue(x, y, level,this._tileQueue);
+        if(cacheTile != undefined){
+            return cacheTile;
         }
         else{
             var that = this;
@@ -200,13 +194,17 @@ function createMVTWithStyle(Cesium,ol,createMapboxStreetsV6Style,options) {
                     _replayGroup.finish();
                     
                     _replayGroup.replay(vectorContext, that._pixelRatio, that._transform, 0, {}, that._replays, true);
-                    _replayGroup.x = x;
-                    _replayGroup.y = y;
-                    _replayGroup.z = z;
-                    that._tileQueue.markTileRendered(_replayGroup);
                     if(that._tileQueue.count>that._cacheSize){
                         trimTiles(that._tileQueue,that._cacheSize/2);
                     }
+
+                    canvas.xMvt = x;
+                    canvas.yMvt = y;
+                    canvas.zMvt = z;
+                    that._tileQueue.markTileRendered(canvas);
+
+                    delete _replayGroup;
+                    _replayGroup = null;
 
                     return canvas;
                 }).otherwise(function(error) {
