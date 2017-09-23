@@ -5,4 +5,4 @@ If you are interested in it, you can download ExamplesforCesium and place it in 
 Then, you can browser these examples, the link is [***Here***](https://pasu.github.io/ExamplesforCesium/examples/examples.html)
 
 ##License
-I disclaims copyright to this source code, just bless you can use it and give me your suggestion.
+Apache License 2.0
