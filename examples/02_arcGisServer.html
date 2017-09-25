@@ -17,21 +17,25 @@
 <script>
     function onload(Cesium) {
         var viewer = new Cesium.Viewer('cesiumContainer', {
-            imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
-                url : 'https://atlasmaps.esri.com/arcgis/rest/services/Esri/USA_Population_Density/MapServer',
-                enablePickFeatures : false
-            }),
-           baseLayerPicker : false
-        });
+			imageryProvider : new Cesium.WebMapTileServiceImageryProvider({
+				url : 'http://t0.tianditu.com/img_w/wmts',
+				layer : 'img',
+				style : 'default',
+				format : 'tiles',
+				tileMatrixSetID : 'w',
+				credit : new Cesium.Credit('天地图全球影像服务'),
+				maximumLevel : 18
+			}),
+			baseLayerPicker : false
+		});
 
-        var test =  new Cesium.ArcGisMapServerImageryProvider({
-            url : 'https://atlasmaps.esri.com/arcgis/rest/services/Esri/USA_Population_Density/MapServer',
-            enablePickFeatures : false
-        });
+var arcgis =  new Cesium.ArcGisMapServerImageryProvider({
+    url : 'http://www.geomap.cedd.gov.hk/arcgis/rest/services/SIS/MapServer',
+});
 
         var imageryLayers = viewer.imageryLayers;
 
-        imageryLayers.addImageryProvider(test);
+        imageryLayers.addImageryProvider(arcgis);
     };
 </script>
 </body>
