@@ -68,6 +68,10 @@ var exampleConfig = {
                     thumbnail: "02_multilayers.jpg",
                     fileName: "02_multiProvider"
                 },{
+                    name: "TileCoordinateProviders",
+                    thumbnail: "02_canvas.jpg",
+                    fileName: "02_canvas"
+                },{
                     name: "Baidu Map",
                     thumbnail: "02_bd.jpg",
                     fileName: "02_baidu"
