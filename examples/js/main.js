@@ -1,4 +1,4 @@
-var developMode = true;
+var developMode = false;
 
 if(developMode){
 	require.config({
