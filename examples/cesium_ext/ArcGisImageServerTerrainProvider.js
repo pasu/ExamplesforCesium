@@ -587,56 +587,59 @@ function createArcGisElevation3DTerrainProvider(Cesium){
   ArcGisElevation3DTerrainProvider.prototype.requestTileGeometry = function(x, y, level) {
     var url = this._baseUrl.replace('{z}', level).replace('{x}', x).replace('{y}', y);
 
-    var promise;
-
-    function tileLoader(tileUrl) {
-        return Cesium.loadArrayBuffer(tileUrl);
-    }
-
-    promise = tileLoader(url);
-
     var that = this;
-    return Cesium.when(promise, function(buffer) {
-        var bufferNow = buffer;
-        var pixels, mask, min, max, height, width;
-        var decodedPixelBlock = that.lerc.decode(buffer, { returnMask: true });
-        width = decodedPixelBlock.width;
-        height = decodedPixelBlock.height;
-        min = decodedPixelBlock.minValue;
-        max = decodedPixelBlock.maxValue;
-        pixels = decodedPixelBlock.pixelData;
-        mask = decodedPixelBlock.maskData;
 
-        var bEmptyData = 0;
-        var setWidth = 65;
-        var nRatio = 4;
-        var fWidth = setWidth;
-        var fHeight = setWidth;
-        var buffer = new Float32Array(fWidth*fHeight);
+    var resource = Cesium.Resource.createIfNeeded(url);
+    return resource.fetchArrayBuffer().then(function(buffer) {
+      var bufferNow = buffer;
+      var pixels, mask, min, max, height, width;
+      var decodedPixelBlock = that.lerc.decode(buffer, { returnMask: true });
+      width = decodedPixelBlock.width;
+      height = decodedPixelBlock.height;
+      min = decodedPixelBlock.minValue;
+      max = decodedPixelBlock.maxValue;
+      pixels = decodedPixelBlock.pixelData;
+      mask = decodedPixelBlock.maskData;
 
-        for(var i=0;i<fHeight;i++){
-            for(var j=0;j<fWidth;j++){
-              if(mask&&mask[i*width*nRatio+j*nRatio]==0){
-                buffer[i*fWidth+j] = 0;                        
-              }else{
-                  buffer[i*fWidth+j] = pixels[i*width*nRatio+j*nRatio];
-                  bEmptyData++;
-              }                
-            }
+      var bEmptyData = 0;
+      var setWidth = 65;
+      var nRatio = 4;
+      var fWidth = setWidth;
+      var fHeight = setWidth;
+      var buffer = new Float32Array(fWidth*fHeight);
 
-        }
+      for(var i=0;i<fHeight;i++){
+          for(var j=0;j<fWidth;j++){
+            if(mask&&mask[i*width*nRatio+j*nRatio]==0){
+              buffer[i*fWidth+j] = 0;                        
+            }else{
+                buffer[i*fWidth+j] = pixels[i*width*nRatio+j*nRatio];
+                bEmptyData++;
+            }                
+          }
 
-        if(bEmptyData !=0){
-            return new Cesium.HeightmapTerrainData({
-              buffer : buffer,
-              width : fWidth,
-              height : fHeight,
-              structure : that._terrainDataStructure
-          });            
-        }else{
-          return {bEmptyData:true};
-        }
+      }
+
+      return new Cesium.HeightmapTerrainData({
+        buffer : buffer,
+        width : fWidth,
+        height : fHeight,
+        structure : that._terrainDataStructure
+    }); 
+      // if(bEmptyData !=0){
+      //     return new Cesium.HeightmapTerrainData({
+      //       buffer : buffer,
+      //       width : fWidth,
+      //       height : fHeight,
+      //       structure : that._terrainDataStructure
+      //   });            
+      // }else{
+      //   return {bEmptyData:true};
+      // }
+    }).otherwise(function(error) {                
     });
+    
+    return 
   };
 
   /**

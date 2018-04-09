@@ -42,10 +42,15 @@
 </div>
 <script>
     function onload(Cesium) {
+        clock = new Cesium.Clock();
+        clock.shouldAnimate = true;
+        vmClock = new Cesium.ClockViewModel(clock);
+
         var viewer = new Cesium.Viewer('cesiumContainer',{
             sceneModePicker:true,
             navigation:false,
             baseLayerPicker : false,
+            clockViewModel:vmClock,
             imageryProvider : new Cesium.WebMapTileServiceImageryProvider({
 				url : 'http://t0.tianditu.com/img_w/wmts?',
 				layer : 'img',
@@ -61,8 +66,8 @@
         viewer.scene.mode = Cesium.SceneMode.SCENE2D;
         $('#loadingbar').remove();
 
-        Cesium.loadText('./data/wuhan-car').then(function(rs) {
-
+        var resource = Cesium.Resource.createIfNeeded('./data/wuhan-car');
+        resource.fetchText().then(function(rs) {
             //////////////////////////////////////////
             var animationObj = {
             stepsRange: {
@@ -161,7 +166,8 @@
                 //将经度、纬度、高度的坐标转换为笛卡尔坐标
                 destination : Cesium.Cartesian3.fromDegrees(114.2827, 30.4434,126468)
             });
-        }).otherwise(function(error) {});
+        }).otherwise(function(error) {
+        });
     }
 </script>
 </body>

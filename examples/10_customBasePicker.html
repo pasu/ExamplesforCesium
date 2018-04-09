@@ -6,7 +6,7 @@
     <title>Base Picker</title>
     <link href="../Build/Cesium/Widgets/widgets.css" rel="stylesheet">
     <script type="text/javascript" src="./js/require.min.js" data-main="./js/main"></script>
-    <script type="text/javascript" src="./js/googlemaps.js" data-main="./js/main"></script>
+    <script type="text/javascript" src="./js/imageryproviders/googlemaps.js"></script>
     <script type="text/javascript" src="./cesium_ext/ArcGisImageServerTerrainProvider.js"></script>
     <style>
         html, body, #cesiumContainer {
@@ -33,7 +33,7 @@
         });
         providerViewModels.push(bingMapModel);
 
-        var googlemap = createGoogleMaps(Cesium,{key:"AIzaSyBV9Ir9skml9c2i4iORl_Sa6OwspWtBwbk"});
+        var googlemap = createGoogleMapsByAPI(Cesium,{key:"AIzaSyBV9Ir9skml9c2i4iORl_Sa6OwspWtBwbk"});
         var googlemapModel = new Cesium.ProviderViewModel({
             name : 'Google Maps Aerial',
             iconUrl : "./images/googlemaps.png",

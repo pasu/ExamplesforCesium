@@ -138,7 +138,7 @@ var exampleConfig = {
             "Planet": {
                 name: "Planet",
                 content: [{
-                    name: "Real AQI",
+                    name: "Real-time AQI",
                     thumbnail: "20_aqi.jpg",
                     fileName: "20_aqi"
                 }, {

@@ -80,10 +80,16 @@
     }
 
     function onload(Cesium) {
+        clock = new Cesium.Clock();
+        clock.shouldAnimate = true;
+        vmClock = new Cesium.ClockViewModel(clock);
+
+
         var viewer = new Cesium.Viewer('cesiumContainer',{
             sceneModePicker:true,
             navigation:false,
             baseLayerPicker : false,
+            clockViewModel:vmClock,
             imageryProvider:new Cesium.SingleTileImageryProvider({
                 url : './images/earthbump1k.jpg'
             })

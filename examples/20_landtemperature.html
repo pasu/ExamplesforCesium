@@ -103,13 +103,16 @@
             multiplier:1*60*60*24*defaultDays
         });
 
+        clock.shouldAnimate = true;
+        vmClock = new Cesium.ClockViewModel(clock);
+
         var viewer = new Cesium.Viewer('cesiumContainer',{
             animation:true,
             timeline:true,
             skyBox : false,
             skyAtmosphere : false,
             baseLayerPicker : false,
-            clock:clock,
+            clockViewModel:vmClock,
             imageryProvider :new Cesium.SingleTileImageryProvider({
                 url : './images/globe.jpg'
             })

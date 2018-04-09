@@ -169,7 +169,9 @@ function createMVTWithStyle(Cesium,ol,createMapboxStreetsV6Style,options) {
             var url = this._url;
             url = url.replace('{x}', x).replace('{y}', y).replace('{z}', level).replace('{k}', this._key);
             var tilerequest = function(x,y,z){
-                return Cesium.loadArrayBuffer(url).then(function(arrayBuffer) {
+                var resource = Cesium.Resource.createIfNeeded(url);
+
+                return resource.fetchArrayBuffer().then(function(arrayBuffer) {
                     var canvas = document.createElement('canvas');
                     canvas.width = 512;
                     canvas.height = 512;
@@ -207,8 +209,12 @@ function createMVTWithStyle(Cesium,ol,createMapboxStreetsV6Style,options) {
                     _replayGroup = null;
 
                     return canvas;
-                }).otherwise(function(error) {
+                }).otherwise(function(error) {                
                 });
+                // return Cesium.loadArrayBuffer(url).then(function(arrayBuffer) {
+                    
+                // }).otherwise(function(error) {
+                // });
             }(x,y,level);
         }
     };
