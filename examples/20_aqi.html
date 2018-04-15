@@ -181,7 +181,20 @@ function onload(Cesium,CesiumHeatmap) {
 						if(currentData.length != 0 && currentDate>startTimestamp){
 							//viewer.entities.removeAll();
 							for (var i = currentData.length - 1; i >= 0; i--) {
-								var color = new Cesium.Color(currentData[i].color.red,currentData[i].color.green,currentData[i].color.blue,0.1);
+								var color = new Cesium.Color(currentData[i].color.red,currentData[i].color.green,currentData[i].color.blue,1.0);
+
+								viewer.entities.add({
+									position : Cesium.Cartesian3.fromDegrees(currentData[i].lon, currentData[i].lat),
+									billboard :{
+										image : './images/images.png',
+										width:pixelRadius *2,
+										height:pixelRadius *2,
+										color : color
+									},
+									name:currentData[i].name,
+									description:currentData[i].description
+								});
+
 								/*viewer.entities.add({
 									position : Cesium.Cartesian3.fromDegrees(currentData[i].lon, currentData[i].lat,100),
 									point : {
@@ -193,7 +206,7 @@ function onload(Cesium,CesiumHeatmap) {
 									},
 									name:currentData[i].name,
 									description:currentData[i].description
-								});*/
+								});
 								var imgCircle = circleTable[currentData[i].aqiValue];
 								if(imgCircle == null){								
 									var circleCanvas = document.createElement('canvas');
@@ -228,6 +241,7 @@ function onload(Cesium,CesiumHeatmap) {
 									name:currentData[i].name,
 									description:currentData[i].description
 								});
+								*/
 							}						
 						
 							currentRectangle = localRectangle;
