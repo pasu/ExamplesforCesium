@@ -35,8 +35,8 @@
             ///////////////////////////////////////////
             function BDImageryProvider(options) {
 
-                this._url = "http://online1.map.bdimg.com/onlinelabel/?qt=tile";
-                // this._url = "https://api.map.baidu.com/customimage/tile?udt=20181205&scale=1&ak=1XjLLEhZhQNUzd93EjU5nOGQ&customid=dark";
+                // this._url = "http://online1.map.bdimg.com/onlinelabel/?qt=tile";
+                this._url = "https://api.map.baidu.com/customimage/tile?udt=20181205&scale=1&ak=1XjLLEhZhQNUzd93EjU5nOGQ&customid=dark";
 
                 this._tileWidth = 256;
                 this._tileHeight = 256;
@@ -231,17 +231,6 @@
                 imageryProvider: bdlayer,
                 baseLayerPicker: false
             });
-            viewer.imageryLayers.add(
-                new Cesium.ImageryLayer(new Cesium.TileCoordinatesImageryProvider({
-                    tilingScheme: new Cesium.WebMercatorTilingScheme()
-                }))
-            );
-            const pos = [114.396907, 30.467304];
-            viewer.entities.add({
-                position: Cesium.Cartesian3.fromDegrees(pos[0], pos[1], 10),
-                point: { pixelSize: 10, color: Cesium.Color.RED }
-            });
-            viewer.camera.setView({ destination: Cesium.Cartesian3.fromDegrees(pos[0], pos[1], 1000) })
         };
     </script>
 </body>
