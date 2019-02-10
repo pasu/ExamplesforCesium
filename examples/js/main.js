@@ -43,5 +43,6 @@ if (typeof Cesium !== "undefined" && typeof echarts !== "undefined" && typeof Ce
         Cesium.BingMapsApi.defaultKey = "AlgsUaY9R3p9MHmp-GN-o4j9HsdPrxboqvpaWwL5Da5vwQv7YkdC426vW1s6Lxrk";
     onload(Cesium,CesiumHeatmap,echarts);
 } else if (typeof require === "function") {
+	Cesium.BingMapsApi.defaultKey = "AlgsUaY9R3p9MHmp-GN-o4j9HsdPrxboqvpaWwL5Da5vwQv7YkdC426vW1s6Lxrk";
     require(["Cesium","CesiumHeatmap","echarts"], onload);
 }
