@@ -28,15 +28,12 @@
 		terrainProvider.readyPromise.then(function() {
 			var viewer = new Cesium.Viewer('cesiumContainer', {
 				terrainProvider:terrainProvider,
-				imageryProvider : new Cesium.WebMapTileServiceImageryProvider({
-					url : 'http://t0.tianditu.com/img_w/wmts?',
-					layer : 'img',
-					style : 'default',
-					format : 'tiles',
-					tileMatrixSetID : 'w',
-					credit : new Cesium.Credit('天地图全球影像服务'),
-					maximumLevel : 18
-				}),
+				imageryProvider : new Cesium.BingMapsImageryProvider({
+                    url : 'https://dev.virtualearth.net',
+                    mapStyle : Cesium.BingMapsStyle.AERIAL,
+                    culture:"zh-Hans",
+                    key:"AlgsUaY9R3p9MHmp-GN-o4j9HsdPrxboqvpaWwL5Da5vwQv7YkdC426vW1s6Lxrk" // apply your own key from bing map
+                }),
 				baseLayerPicker : false,
 
 			});
