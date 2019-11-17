@@ -118,9 +118,9 @@ function onload(Cesium,CesiumHeatmap) {
 	});
 
 	var viewer = new Cesium.Viewer('cesiumContainer', {
-			imageryProvider:new Cesium.SingleTileImageryProvider({
-                url : './images/2016c.jpg'
-            }),
+			imageryProvider:Cesium.createOpenStreetMapImageryProvider({
+                    url : 'https://a.tile.openstreetmap.org'
+                }),
 			baseLayerPicker : false,
 			geocoder:true
 		});
