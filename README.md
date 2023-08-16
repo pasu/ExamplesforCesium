@@ -1,5 +1,5 @@
 # ExamplesforCesium
-As an engineer, I really appreciate the great achievement of [***Cesium***](https://cesiumjs.org/), it seems like an ocean for me to find the gems(ideas, algorithms and skills)
+As an engineer, I really appreciate the great achievement of [***Cesium***](https://cesiumjs.org/), it seems like an ocean for me to find the gems(ideas, algorithms, and skills)
 
 Here, these are the demos prepared for this book. you can download and try them by yourselves, and I will edit the lessons on the [***Cesium Cookbook***](https://github.com/pasu/ExamplesforCesium/wiki/1-Cesium-Cookbook) continuously
 
